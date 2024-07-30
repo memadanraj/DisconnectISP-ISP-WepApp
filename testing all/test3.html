@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Login | PDS Server Network</title>
+    <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/css/auth.css" rel="stylesheet">
+    <style>
+        .validation-message {
+            color: red;
+            font-size: 0.9em;
+        }
+        .valid {
+            color: green;
+        }
+        .invalid {
+            color: red;
+        }
+    </style>
+    <script>
+        // Client-side validation
+        function validateForm() {
+            const email = document.forms["loginForm"]["email"].value;
+            const password = document.forms["loginForm"]["password"].value;
+
+            // Basic email format validation
+            const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+            if (!emailPattern.test(email)) {
+                alert("Please enter a valid email address.");
+                return false;
+            }
+
+            // Check password rules
+            const passwordValid = validatePassword(password);
+            if (!passwordValid) {
+                return false;
+            }
+
+            return true;
+        }
+
+        // Password validation rules
+        function validatePassword(password) {
+            let valid = true;
+
+            // Password length
+            const lengthValid = password.length >= 6;
+            setValidationMessage("length", lengthValid);
+            valid &= lengthValid;
+
+            // Uppercase letter
+            const uppercaseValid = /[A-Z]/.test(password);
+            setValidationMessage("uppercase", uppercaseValid);
+            valid &= uppercaseValid;
+
+            // Lowercase letter
+            const lowercaseValid = /[a-z]/.test(password);
+            setValidationMessage("lowercase", lowercaseValid);
+            valid &= lowercaseValid;
+
+            // Digit
+            const digitValid = /\d/.test(password);
+            setValidationMessage("digit", digitValid);
+            valid &= digitValid;
+
+            // Special character
+            const specialCharValid = /[@$!%*?&]/.test(password);
+            setValidationMessage("specialChar", specialCharValid);
+            valid &= specialCharValid;
+
+            return valid;
+        }
+
+        // Set validation message for each rule
+        function setValidationMessage(elementId, isValid) {
+            const element = document.getElementById(elementId);
+            if (isValid) {
+                element.classList.add("valid");
+                element.classList.remove("invalid");
+            } else {
+                element.classList.add("invalid");
+                element.classList.remove("valid");
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="auth-content">
+            <div class="card">
+                <div class="card-body text-center">
+                    <div class="mb-4">
+                        <img class="brand" src="assets/img/PDS LOGO Green.png" alt="bootstraper logo" style="width: 320px;">
+                    </div>
+                    <h6 class="mb-4 text-muted">Login to your account</h6>
+                    <form name="loginForm" action="login.php" method="POST" onsubmit="return validateForm()">
+                        <div class="mb-3 text-start">
+                            <label for="email" class="form-label">Email address</label>
+                            <input type="email" name="email" class="form-control" placeholder="Enter Email" required>
+                        </div>
+                        <div class="mb-3 text-start">
+                            <label for="password" class="form-label">Password</label>
+                            <input type="password" name="password" class="form-control" placeholder="Password" required oninput="validatePassword(this.value)">
+                            <div class="validation-message" id="length">Password must be at least 6 characters long</div>
+                            <div class="validation-message" id="uppercase">Password must contain at least one uppercase letter</div>
+                            <div class="validation-message" id="lowercase">Password must contain at least one lowercase letter</div>
+                            <div class="validation-message" id="digit">Password must contain at least one digit</div>
+                            <div class="validation-message" id="specialChar">Password must contain at least one special character (@$!%*?&)</div>
+                        </div>
+                        <div class="mb-3 text-start">
+                            <div class="form-check">
+                                <input class="form-check-input" name="remember" type="checkbox" value="" id="check1">
+                                <label class="form-check-label" for="check1">
+                                    Remember me on this device
+                                </label>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary shadow-2 mb-4" style="background-color: #45A555;">Login</button>
+                    </form>
+                    <p class="mb-2 text-muted">Forgot password? <a href="forgot-password.html" style="color: #45A555;">Reset</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="assets/vendor/jquery/jquery.min.js"></script>
+    <script src="assets/vendor/bootstrap/js/bootstrap.min.js"></script>
+</body>
+
+</html>

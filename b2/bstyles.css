@@ -1,0 +1,39 @@
+/* styles.css */
+
+body {
+    font-family: Arial, sans-serif;
+}
+
+.bg-darkgreen {
+    background-color: #004d00 !important; /* Dark green color */
+}
+
+.text-white {
+    color: white !important;
+}
+
+#sidebar-wrapper {
+    min-height: 100vh;
+    margin-left: -15rem;
+    transition: margin .25s ease-out;
+}
+
+#sidebar-wrapper .list-group {
+    width: 15rem;
+}
+
+#page-content-wrapper {
+    min-width: 100vw;
+}
+
+#wrapper.toggled #sidebar-wrapper {
+    margin-left: 0;
+}
+
+.list-group-item {
+    border: none;
+}
+
+.list-group-item:hover {
+    background-color: #005700 !important; /* Slightly lighter dark green */
+}
